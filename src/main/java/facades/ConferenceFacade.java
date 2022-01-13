@@ -24,6 +24,7 @@ public class ConferenceFacade {
         return instance;
     }
 
+    //TODO: Delete this comment, just used for actions
     public List<Conference> getAllConf(){
         EntityManager em = emf.createEntityManager();
         TypedQuery<Conference> query = em.createQuery("SELECT r FROM Conference r", Conference.class);
