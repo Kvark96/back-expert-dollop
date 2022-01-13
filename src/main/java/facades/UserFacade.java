@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.UserDTO;
+import entities.Role;
 import entities.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -53,6 +54,21 @@ public class UserFacade {
         }
         return new UserDTO(u);
     }
+
+    public String addNewUser(UserDTO udto){
+        User user = new User(udto);
+        Role role = new Role("user");
+        user.addRole(role);
+        try{
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
+        } catch (Exception e){
+            return "Something went wrong while persisting the user: " + e.getMessage();
+        }
+        return "Success!";
+    }
      
      public List<User> getUserByName(String name){
          EntityManager em = getEntityManager();
@@ -68,7 +84,7 @@ public class UserFacade {
     }
      
      
-        public List<User> getAllUsers() {
+    public List<User> getAllUsers() {
         
         EntityManager em = getEntityManager();
         

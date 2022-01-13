@@ -64,8 +64,7 @@ public class UserResource {
     public String getCreateUser(@QueryParam("user") String user)
     {
         UserDTO uDTO = GSON.fromJson(user, UserDTO.class);
-        uDTO = FACADE.createUserDTO(uDTO);
-        return GSON.toJson(uDTO);
+        return FACADE.addNewUser(uDTO);
     }  
         
 }
