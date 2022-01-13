@@ -61,7 +61,7 @@ public class UserResource {
     @Path("createUser")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCreateUser(String user)
+    public String getCreateUser(@QueryParam("user") String user)
     {
         UserDTO uDTO = GSON.fromJson(user, UserDTO.class);
         uDTO = FACADE.createUserDTO(uDTO);
