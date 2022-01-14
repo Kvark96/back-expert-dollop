@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.ConferenceDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,14 @@ public class Conference implements Serializable {
         this.capacity = capacity;
         this.date = date;
         this.time = time;
+    }
+
+    public Conference(ConferenceDTO cDto){
+        this.name = cDto.getName();
+        this.location = cDto.getLocation();
+        this.capacity = cDto.getCapacity();
+        this.date = cDto.getDate();
+        this.time = cDto.getTime();
     }
 
     public Long getId() {

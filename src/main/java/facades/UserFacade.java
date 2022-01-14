@@ -57,7 +57,6 @@ public class UserFacade {
 
     public UserDTO addNewUser(UserDTO udto){
         User user = new User(udto);
-        System.out.println("USER FACADE = " + user);
         Role role;
         if(udto.getRole().equals("admin")){
             role = new Role("admin");
@@ -71,7 +70,7 @@ public class UserFacade {
             em.persist(user);
             em.getTransaction().commit();
         } catch (Exception e){
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return new UserDTO(user);
     }

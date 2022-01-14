@@ -2,14 +2,13 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.ConferenceDTO;
 import facades.ConferenceFacade;
 import utils.EMF_Creator;
 
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
@@ -26,9 +25,19 @@ public class ConferenceResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("all")
-    //@RolesAllowed("user")
+    @RolesAllowed("user")
     public String getAllConf(){
         return GSON.toJson(FACADE.getAllConf());
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
+    @Path("addConf")
+    public String addConf(String conf){
+        ConferenceDTO cdto = GSON.fromJson(conf, ConferenceDTO.class);
+        return GSON.toJson(FACADE.addConference(cdto));
     }
 
 }
