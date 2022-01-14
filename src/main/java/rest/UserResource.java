@@ -58,14 +58,17 @@ public class UserResource {
     }
 
     
-    @Path("createUser")
+    @Path("/createUser")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCreateUser(@QueryParam("user") String user)
+    public String getCreateUser(String user)
     {
+        System.out.println("WE ARE RECEIVING = " + user);
         UserDTO uDTO = GSON.fromJson(user, UserDTO.class);
-        return FACADE.addNewUser(uDTO);
-    }  
-        
+        //UserDTO uDTO = new UserDTO("user", "password");
+        System.out.println("USER RESOURCE = " + uDTO);
+        UserDTO newUserDTO = FACADE.addNewUser(uDTO);
+        return GSON.toJson(newUserDTO);
+    }
 }

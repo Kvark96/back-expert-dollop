@@ -22,19 +22,20 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
   @Id
   @Basic(optional = false)
-  @NotNull
-  @Column(name = "user_name", length = 25)
+  @Column(name = "userName", length = 25)
   private String userName;
+
   @Basic(optional = false)
-  @NotNull
   @Size(min = 1, max = 255)
-  @Column(name = "user_pass")
+  @Column(name = "userPass")
   private String userPass;
-  @JoinTable(name = "user_roles", joinColumns = {
-    @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-    @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
+
+  @JoinTable(name = "userRoles", joinColumns = {
+    @JoinColumn(name = "userName", referencedColumnName = "userName")}, inverseJoinColumns = {
+    @JoinColumn(name = "roleName", referencedColumnName = "roleName")})
   @ManyToMany(cascade = CascadeType.ALL)
   private List<Role> roleList = new ArrayList<>();
 
@@ -61,9 +62,10 @@ public class User implements Serializable {
   }
   
    public User(UserDTO u) {
+        System.out.println(u);
        // if (u.getId() != null) this.id = u.getId();
         this.userName = u.getUserName();
-        this.userPass = BCrypt.hashpw(userPass,BCrypt.gensalt());
+        this.userPass = BCrypt.hashpw(u.getUserPass(),BCrypt.gensalt());
     }
 
   public String getUserName() {
@@ -94,4 +96,12 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  @Override
+  public String toString() {
+    return "User{" +
+            "userName='" + userName + '\'' +
+            ", userPass='" + userPass + '\'' +
+            ", roleList=" + roleList +
+            '}';
+  }
 }

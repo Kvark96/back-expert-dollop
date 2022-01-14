@@ -6,11 +6,13 @@ import org.mindrot.jbcrypt.BCrypt;
 public class UserDTO {
     private String userName;
     private String userPass;
+    private String role;
     // private Long id;
     
-    public UserDTO(String userName, String userPass) {
+    public UserDTO(String userName, String userPass, String role) {
     this.userName = userName;
     this.userPass = userPass;
+    this.role = role;
   }
     
     public UserDTO(User u) {
@@ -23,10 +25,12 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" + "userName=" + userName + ", userPass=" + userPass + '}';
+        return "UserDTO{" + "userName=" + userName + ", userPass=" + userPass + ", role=" + role +'}';
     }
 
-    
+    public String getRole() {
+        return role;
+    }
 
     public String getUserName() {
         return userName;

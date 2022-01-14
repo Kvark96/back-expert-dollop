@@ -25,7 +25,7 @@ public class Role implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "role_name", length = 20)
+    @Column(name = "roleName", length = 20)
     private String roleName;
     
     @ManyToMany(mappedBy = "roleList")

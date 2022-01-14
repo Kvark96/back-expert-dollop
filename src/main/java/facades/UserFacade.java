@@ -55,19 +55,25 @@ public class UserFacade {
         return new UserDTO(u);
     }
 
-    public String addNewUser(UserDTO udto){
+    public UserDTO addNewUser(UserDTO udto){
         User user = new User(udto);
-        Role role = new Role("user");
+        System.out.println("USER FACADE = " + user);
+        Role role;
+        if(udto.getRole().equals("admin")){
+            role = new Role("admin");
+        } else {
+            role = new Role("user");
+        }
         user.addRole(role);
         try{
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit();
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
         } catch (Exception e){
-            return "Something went wrong while persisting the user: " + e.getMessage();
+            e.getMessage();
         }
-        return "Success!";
+        return new UserDTO(user);
     }
      
      public List<User> getUserByName(String name){
